@@ -41,7 +41,7 @@
 - (void)pop;
 //页面栈长
 - (int)stackLength;
-
+- (void)dismiss;
 //调js
 //- (void)callSubscribeHandlerWithEventName:(NSString *)eventName jsonParam:(NSString *)jsonParam webIds:(NSArray *)webIds;
 - (void)callSubscribeHandler:(NSString *)eventName jsonParam:(NSString *)jsonParam webIds:(NSArray *)webIds;

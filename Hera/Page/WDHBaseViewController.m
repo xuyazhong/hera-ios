@@ -51,7 +51,23 @@
             [weak_self.pageManager pop];
         }
     }];
+    [self.naviView setRightClick:^(WDHNavigationView *view){
+        if (weak_self.pageManager) {
+            [weak_self.pageManager dismiss];
+        }
+    }];
     [self.view addSubview:self.naviView];
+    if (self.navigationController.viewControllers.count > 1 && [UIApplication sharedApplication].keyWindow.rootViewController != self) {
+        self.naviView.leftButton.hidden = NO;
+    } else {
+        self.naviView.leftButton.hidden = YES;
+    }
+//    if(self.navigationController.viewControllers.count > 1 &&
+//       [UIApplication sharedApplication].keyWindow.rootViewController != self) {
+//        self.leftButton.hidden = NO;
+//    } else {
+//        _leftButton.hidden = YES;
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated

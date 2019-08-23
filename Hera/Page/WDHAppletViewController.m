@@ -178,6 +178,7 @@
 @property (nonatomic,copy) NSString *wdh_applet_page_id;
 @property (nonatomic,strong) WDHHomeTitleLoadingView *titleLoaddingView;
 @property (nonatomic, strong) UIButton *leftButton;
+@property (nonatomic, strong) UIButton *rightButton;
 @end
 
 @implementation WDHAppletViewController
@@ -219,6 +220,18 @@
     return _leftButton;
 }
 
+- (UIButton *)rightButton {
+    if(!_rightButton) {
+        _rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _rightButton.backgroundColor = [UIColor clearColor];
+        [_rightButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+        [_rightButton addTarget:self action:@selector(rightButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        _rightButton.tintColor = [UIColor blackColor];
+        [self.view addSubview:_rightButton];
+    }
+    return _rightButton;
+}
+
 - (void)setTitle:(NSString *)title
 {
     [super setTitle:title];
@@ -232,13 +245,15 @@
         self.titleLoaddingView.titleLabel.text = self.navigationItem.title;
     }
     
+    CGFloat h =  IS_IPHONE_X ? 88 : 64;
+    CGFloat controlTop =  IS_IPHONE_X ? 44.0 : 20.0;
+    CGFloat controlHeight = h - controlTop;
+    CGFloat btnWidth = h;
+    
     if(!_leftButton.hidden) {
-        CGFloat h =  IS_IPHONE_X ? 88 : 64;
-        CGFloat controlTop =  IS_IPHONE_X ? 44.0 : 20.0;
-        CGFloat controlHeight = h - controlTop;
-        CGFloat btnWidth = h;
         _leftButton.frame = (CGRect){0,controlTop,btnWidth,controlHeight};
     }
+    _rightButton.frame = (CGRect){0, controlTop, btnWidth, controlHeight};
 }
 
 - (void)startLoadingWithImage:(UIImage *)image title:(NSString *)title
@@ -256,9 +271,12 @@
     [self.titleLoaddingView stopLoadWithCompletion:completion];
 }
 
-- (void)leftButtonAction:(id)sender
-{
+- (void)leftButtonAction:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)rightButtonAction: (id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

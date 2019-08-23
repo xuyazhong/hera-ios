@@ -64,13 +64,15 @@
         
         UIImage *img = [WDHBundleUtil imageFromBundleWithName:@"WDIPh_btn_navi_back"];
         [self.leftButton setImage:img forState:UIControlStateNormal];
+        UIImage *rightImg = [WDHBundleUtil imageFromBundleWithName:@"close"];
+        [self.rightButton setImage:rightImg forState:UIControlStateNormal];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         SEL leftAction = @selector(leftButtonAction:);
         SEL rightAction = @selector(rightButtonAction:);
         [self.leftButton addTarget:self action:leftAction forControlEvents:UIControlEventTouchUpInside];
         
         //MARK:------->TEST:------>
-        [self.leftButton addTarget:self action:rightAction forControlEvents:UIControlEventTouchUpInside];
+        [self.rightButton addTarget:self action:rightAction forControlEvents:UIControlEventTouchUpInside];
     }
     
     return self;
@@ -85,7 +87,7 @@
     CGFloat controlHeight = h - controlTop;
     CGFloat btnWidth = h;
     self.leftButton.frame = (CGRect){0,controlTop,btnWidth,controlHeight};
-    self.rightButton.frame = (CGRect){w-btnWidth,controlTop,btnWidth,controlHeight};
+    self.rightButton.frame = (CGRect){w-40,controlTop+10,20,20};
     
     // activityView 宽高默认为20
     if (self.activityView) {

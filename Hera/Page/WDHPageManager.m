@@ -32,6 +32,8 @@
 #import "NSString+WDH.h"
 #import "WDHAppletViewController.h"
 #import "WDHLog.h"
+#import "WDHAppManager.h"
+#import "WDHApp.h"
 
 @implementation WDHPageStack
 
@@ -522,8 +524,14 @@
 	}
 }
 
-- (void)pop{
+- (void)pop {
 	[self.pageStack pop];
+}
+
+- (void)dismiss {
+    WDHApp *app = [[WDHAppManager sharedManager] currentApp];
+    [app stopApp];
+    [self.pageStack.naviController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)callSubscribeHandler:(NSString *)eventName jsonParam:(NSString *)jsonParam webIds:(NSArray *)webIds {
